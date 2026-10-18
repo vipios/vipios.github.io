@@ -34,10 +34,8 @@ UA = 'OmniSign/7.7'
 # 短格式：镜像站会把 github.com/<仓库>/raw/<分支>/ 自动补全为 GitHub 直链，
 # 因此地址里不含 raw.githubusercontent.com，更短
 MIRROR = 'https://gh-proxy.com/'
-MIRROR_BACKUP = 'https://ghfast.top/'
 REPO_PATH = 'github.com/vipios/vipios.github.io/raw/main/'
 SOURCE_URL = MIRROR + REPO_PATH + 'appstore'
-SOURCE_URL_BACKUP = MIRROR_BACKUP + REPO_PATH + 'appstore'
 SOURCE_NAME = '不知道起什么名'
 SOURCE_ICON = MIRROR + REPO_PATH + 'flag2.png'
 OWNER_QQ = '1505435445'
@@ -432,8 +430,7 @@ def main():
 
     message = (f'共 {len(apps)} 个应用\n'
                f'最近 30 分钟更新 {updated_30min} 个 · 今日更新 {updated_today} 个\n'
-               f'源主 QQ：{OWNER_QQ}\n'
-               f'备用地址（主地址失效时使用）：{SOURCE_URL_BACKUP}')
+               f'源主 QQ：{OWNER_QQ}')
 
     news = [
         {
