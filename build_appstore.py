@@ -2,8 +2,9 @@
 """全能签聚合源构建：实时抓取上游源 → 过滤锁定/无效项 → 去重合并 → 输出 appstore
 
 更新统计说明（GitHub Actions 无状态环境）：
-- 30 分钟更新数 = 与仓库中上次提交的 appstore 对比新增的应用
-- 今日更新数 = versionDate 为今天（北京时间）的应用数
+- 本次新增 = 与仓库中上次提交的 appstore 相比，应用总数增加的数量
+- 今日新增 = 相对当天 0 点（北京时间）起点数量的增加量；起点记录在 stats.json，
+  每天 0 点后首次运行时重置，因此公告里的“今日新增”会在每天 24 点归零后重新统计
 """
 import hashlib
 import json
@@ -19,6 +20,7 @@ from concurrent.futures import ThreadPoolExecutor
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, 'appstore')
 CACHE = os.path.join(ROOT, 'source_cache.json')
+STATS = os.path.join(ROOT, 'stats.json')  # 每日统计基线（当天 0 点应用数）
 
 SOURCES = [
     'https://ipa.hxys2.xyz/appstore',
@@ -200,15 +202,21 @@ def is_app_valid(app):
     return True
 
 
-def load_prev_keys():
-    """读仓库中上次提交的 appstore，作为 30 分钟对比基线"""
+def load_stats():
+    """读每日统计基线（记录当天 0 点时的应用总数）"""
     try:
-        with open(OUT, encoding='utf-8') as f:
-            old = json.load(f)
-        return {f"{a.get('name', '')}|{a.get('version', '')}"
-                for a in old.get('apps', [])}
+        with open(STATS, encoding='utf-8') as f:
+            return json.load(f)
     except Exception:
-        return set()
+        return {}
+
+
+def save_stats(d):
+    try:
+        with open(STATS, 'w', encoding='utf-8') as f:
+            json.dump(d, f, ensure_ascii=False, separators=(',', ':'))
+    except Exception as e:
+        print(f'  [warn] 统计写入失败: {e}', file=sys.stderr)
 
 
 def source_apps(d):
@@ -420,16 +428,22 @@ def main():
         return
 
     # ---- 更新统计 ----
-    prev_keys = load_prev_keys()
-    updated_30min = len(seen - prev_keys) if prev_keys else 0
+    total = len(apps)
+    prev_total = len(old_apps)          # 上次提交时的应用总数
+    added = max(0, total - prev_total)  # 本次新增
     today = time.strftime('%Y-%m-%d', time.gmtime(time.time() + 8 * 3600))  # 北京时间
-    updated_today = sum(1 for a in apps
-                        if str(a.get('versionDate', '')).startswith(today))
+    stats = load_stats()
+    if stats.get('date') != today:
+        # 新的一天（北京时间 0 点后首次运行）：以昨夜最后一次提交的总数为今日起点
+        stats = {'date': today, 'base': prev_total}
+    base = int(stats.get('base', prev_total))
+    today_added = max(0, total - base)  # 今日新增（自 0 点起累计）
+    save_stats(stats)
 
     apps.sort(key=lambda a: str(a.get('versionDate') or ''), reverse=True)
 
-    message = (f'共 {len(apps)} 个应用\n'
-               f'最近 30 分钟更新 {updated_30min} 个 · 今日更新 {updated_today} 个\n'
+    message = (f'共 {total} 个应用\n'
+               f'本次新增 {added} 个 · 今日新增 {today_added} 个\n'
                f'源主 QQ：{OWNER_QQ}')
 
     news = [
@@ -457,9 +471,10 @@ def main():
         json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
 
     print(f'  上游: {" ".join(per_source)}')
-    print(f'  合计: {len(apps)} 个应用 -> appstore '
+    print(f'  合计: {total} 个应用 -> appstore '
           f'({os.path.getsize(OUT) / 1048576:.1f}MB)')
-    print(f'  统计: 30分钟更新 {updated_30min} | 今日更新 {updated_today}')
+    print(f'  统计: 本次新增 {added} | 今日新增 {today_added}'
+          f'（{today} 起点 {base}）')
 
 
 if __name__ == '__main__':
