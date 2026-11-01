@@ -6,11 +6,11 @@ Author: Muzi
 Section: Tweaks
 Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
 Conflicts: com.muzi.mutoollite
-Icon: https://muzikeji.github.io/sileo/icons/mutool.png
 SileoDepiction: https://muzikeji.github.io/sileo/depictions/com.muzi.mutool.json
 Architecture: iphoneos-arm64e
 Version: 2.2.18
 Installed-Size: 4844
+Icon: https://vipios.github.io/icons/com.muzi.mutool.png
 Filename: debs/MUtool-2.2.18-roothide.deb
 Size: 755906
 MD5sum: c4138bea327c106494d0d2a65d3f2d6e
@@ -27,7 +27,6 @@ Installed-Size: 2116
 Name: 下拉时间电量
 Author: Netskao
 Sponsor: 搬运工
-Icon: https://chinesebuilding.club/pic/cydia.png
 Description: 在横屏游戏下拉一次时显示时间和电量｜某些游戏不规范会无法唤出｜支持自定义字体颜色｜背景颜色｜字体大小｜字体样式｜震动反馈等。
 Filename: debs/下拉时间电量-1.1-7-roothide.deb
 Size: 848918
@@ -63,8 +62,8 @@ Section: Tweaks
 Depends: mobilesubstrate (>= 1.1.5000)
 Architecture: iphoneos-arm64e
 Version: 1.2
-Icon: https://s1.imagehub.cc/images/2025/12/26/4eeb970bf2c4db32c7f60f54d61b2587.png
 Installed-Size: 180
+Icon: https://vipios.github.io/icons/com.wkk.doubletapflipcamera.png
 Filename: debs/双击翻转相机-1.2-roothide.deb
 Size: 5704
 MD5sum: a21ec4d19b88806cd03ae9b72b7d7655
@@ -81,10 +80,10 @@ Maintainer: Axs <qiaozhani000@163.com>
 Author: Axs <qiaozhani000@163.com>
 Section: Tweaks
 Depends: preferenceloader
-Icon: https://axs66.github.io/pro/icon/ips.png
 Architecture: iphoneos-arm64e
 Version: 5.2.0-31
 Installed-Size: 512
+Icon: https://vipios.github.io/icons/com.axs.ipslog.png
 Filename: debs/崩溃日志-5.2.0-31-roothide.deb
 Size: 113234
 MD5sum: 6ddda262f44729c2bbfe341fb7a1814d
@@ -163,7 +162,6 @@ Depends: mobilesubstrate, preferenceloader
 Architecture: iphoneos-arm64e
 Version: 1.0.26~lite40
 Installed-Size: 696
-Icon: https://jimkanuo.github.io/apt-repo/depiction/rainbowkeyboard/icon.png
 SileoDepiction: https://jimkanuo.github.io/apt-repo/depiction/com.minis.rainbowkeyboard.json
 Filename: debs/彩虹键盘-1.0.26-roothide.deb
 Size: 224174
@@ -219,7 +217,6 @@ Replaces: com.ioscreatix.silo
 Conflicts: com.ioscreatix.silo
 Installed-Size: 804
 Description: CCSupport 控制中心模块支持库（opa334出品），截图插件的控制中心模块需要它，安装截图插件时会自动安装。已适配Roothide隐根越狱。
-Icon: https://chinesebuilding.club/pic/cydia.png
 Filename: debs/截图插件依赖库-1.3.13-roothide.deb
 Size: 83602
 MD5sum: 546f144c4b9ecb2ad2ca51862edc529b
@@ -257,8 +254,8 @@ Section: Tweaks
 Tag: role::developer
 Architecture: iphoneos-arm64e
 Version: 1.7.0
-Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
 Pre-Depends: rootless-compat(>= 0.9)
+Icon: https://vipios.github.io/icons/com.mrgcgamer.libgcuniversal.png
 Filename: debs/插件归类依赖库-1.7.0-roothide.deb
 Size: 60970
 MD5sum: 516ccac13afe7f8c2289ee505fda9922
@@ -277,8 +274,8 @@ Installed-Size: 152
 Name: 注销不锁屏
 Author: Brend0n
 Sponsor: Ai-小苹果™
-Icon: file:///Applications/Cydia.app/Sections/System.png
 Icon2: 17.png
+Icon: file:///Applications/Cydia.app/Sections/System.png
 Filename: debs/注销不锁屏-1.0-1-roothide.deb
 Size: 5644
 MD5sum: b61d49eda4368a7fe8cc7b098de0143b
@@ -332,8 +329,8 @@ Installed-Size: 3948
 Name: 白巨魔
 Author: opa334
 Sponsor: Ai-小苹果™
-Icon: file:///Applications/Cydia.app/Sections/System.png
 Icon2: 17.png
+Icon: file:///Applications/Cydia.app/Sections/System.png
 Filename: debs/白巨魔-2.1.1-2-roothide.deb
 Size: 1893260
 MD5sum: 29def844097183f5cace9ef4a454898d
